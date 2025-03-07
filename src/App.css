@@ -6,7 +6,21 @@ body {
   background-color: #111;
   color: white;
   text-align: center;
-  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Center Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 /* Button Styles */
@@ -17,6 +31,7 @@ body {
   font-weight: bold;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  margin: 10px;
 }
 
 .btn-blue {

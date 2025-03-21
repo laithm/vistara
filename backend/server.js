@@ -1,31 +1,80 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
+// Initialize Express App
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(express.json()); // Middleware to parse JSON
+app.use(cors()); // Enable CORS for cross-origin requests
 
-const MONGO_URI = "mongodb+srv://laithmasri:E3hrMlrtE49wiWv5@cluster0.fzv6v.mongodb.net/Weight?retryWrites=true&w=majority";
-// MongoDB connection string (pls dont lose it)
-
-const weightRoutes = require("./routes/weightRoutes");
-app.use("/api/weights", weightRoutes);
-
-mongoose.connect(MONGO_URI)
-    .then(() => console.log("✅ MongoDB Connected"))
-    .catch(err => console.error("❌ MongoDB Connection Error:", err));
-
-// Middleware
-app.use(express.json());
-app.use(cors());
-
-// Default Route / will chang esoon
-app.get("/", (req, res) => {
-    res.send("🚀 Backend is running!");
+// MongoDB Connection
+mongoose.connect("mongodb+srv://laithmasri:123@cluster0.fzv6v.mongodb.net/Cluster0?retryWrites=true&w=majority&appName=Cluster0", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log("✅ MongoDB Atlas Connected!");
+}).catch(err => {
+    console.error("❌ MongoDB Connection Error:", err);
 });
 
-// Starts the Server
+// Define Schema
+const weightSchema = new mongoose.Schema({
+    ID: String,       // User ID
+    Weight: Number,   // Weight in grams
+    Height: Number,   // Height in cm
+    BMI: Number,      // BMI
+    TimeStamp: { type: Date, default: Date.now } // Timestamp
+});
+
+// Create Model with Correct Collection Name
+const WeightEntry = mongoose.model("User_Info", weightSchema);  // <-- COLLECTION NAME FIXED
+
+// API ROUTES
+
+// 📌 GET: Fetch Weight Data by User ID
+app.get('/api/weights/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const weights = await WeightEntry.find({ ID: id });
+
+        if (weights.length === 0) {
+            return res.status(404).json({ message: "No weights found in database." });
+        }
+        res.json(weights);
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+});
+
+// 📌 POST: Add New Weight Entry
+app.post('/api/weights', async (req, res) => {
+    try {
+        const { ID, Weight, Height } = req.body;
+
+        if (!ID || !Weight || !Height) {
+            return res.status(400).json({ message: "ID, Weight, and Height are required." });
+        }
+
+        // Calculate BMI
+        const heightInMeters = Height / 100;
+        const BMI = (Weight / 1000) / (heightInMeters * heightInMeters);
+
+        const newEntry = new WeightEntry({
+            ID,
+            Weight,
+            Height,
+            BMI
+        });
+
+        await newEntry.save();
+        res.status(201).json({ message: "✅ Weight entry added successfully!", data: newEntry });
+    } catch (err) {
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+});
+
+// Start Server
+const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

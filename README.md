@@ -2,7 +2,7 @@ Vistara - Full Stack Application
 
 Vistara is a full-stack web application built with React (Vite) for the frontend, Node.js/Express for the backend, and MongoDB for data storage. The system tracks user weight, height, and BMI and provides a structured API for data retrieval and storage.
 Project Structure
-
+```
 vistara/
 │── backend/
 │   ├── api/
@@ -26,7 +26,7 @@ vistara/
 │── README.md               # Project documentation
 │── package.json            # Node.js dependencies
 │── tsconfig.json           # TypeScript configuration
-
+```
 Backend Setup (Node.js, Express, MongoDB)
 1. Install Dependencies
 

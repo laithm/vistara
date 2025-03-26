@@ -1,10 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const Weight = require("../models/Weight");
+const User = require("../../models/UserModel"); // Still your model name, can be renamed if needed
 
 const router = express.Router();
 
-// 📌 Register User
+// Register New User
 router.post("/register", async (req, res) => {
     try {
         const { USER_ID, Password, Weight, Height } = req.body;
@@ -13,22 +13,27 @@ router.post("/register", async (req, res) => {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const newUser = new Weight({
+        const existingUser = await User.findOne({ USER_ID });
+        if (existingUser) {
+            return res.status(400).json({ error: "User already exists" });
+        }
+
+        const newUser = new User({
             USER_ID,
-            Password, // Hashed automatically
+            Password,
             Weight,
             Height
         });
 
         await newUser.save();
-        res.status(201).json({ message: "✅ User registered successfully", USER_ID });
+        res.status(201).json({ message: "User registered successfully", USER_ID });
     } catch (error) {
-        console.error("❌ Error registering user:", error);
+        console.error("Error registering user:", error);
         res.status(500).json({ error: "Server error during registration" });
     }
 });
 
-// 📌 Login User
+// Login Existing User
 router.post("/login", async (req, res) => {
     try {
         const { USER_ID, Password } = req.body;
@@ -37,42 +42,39 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ error: "USER_ID and Password are required" });
         }
 
-        const user = await Weight.findOne({ USER_ID });
-
+        const user = await User.findOne({ USER_ID });
         if (!user) {
             return res.status(401).json({ error: "Invalid credentials" });
         }
 
         const isMatch = await bcrypt.compare(Password, user.Password);
-
         if (!isMatch) {
             return res.status(401).json({ error: "Invalid credentials" });
         }
 
-        res.json({ message: "✅ Login successful", USER_ID });
+        res.json({ message: "Login successful", USER_ID });
     } catch (error) {
-        console.error("❌ Error logging in:", error);
+        console.error("Error logging in:", error);
         res.status(500).json({ error: "Server error during login" });
     }
 });
 
-// 📌 Get All Weights (If No Data, Return a Message)
+// Get All User Weight Entries
 router.get("/", async (req, res) => {
     try {
-        const weights = await Weight.find();
-
-        if (weights.length === 0) {
-            return res.json({ message: "No weights in database" });
+        const users = await User.find();
+        if (users.length === 0) {
+            return res.json({ message: "No users in database" });
         }
 
-        res.json(weights);
+        res.json(users);
     } catch (error) {
-        console.error("❌ Error fetching data:", error);
-        res.status(500).json({ error: "Error fetching weight data" });
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Error fetching data" });
     }
 });
 
-// 📌 Add New Weight Entry
+// Add New Weight Entry (Post-Registration Update)
 router.post("/", async (req, res) => {
     try {
         const { USER_ID, Weight, Height } = req.body;
@@ -81,7 +83,7 @@ router.post("/", async (req, res) => {
             return res.status(400).json({ error: "USER_ID, Weight, and Height are required" });
         }
 
-        const newEntry = new Weight({
+        const newEntry = new User({
             USER_ID,
             Weight,
             Height,
@@ -89,9 +91,9 @@ router.post("/", async (req, res) => {
         });
 
         await newEntry.save();
-        res.status(201).json({ message: "✅ Weight entry saved", newEntry });
+        res.status(201).json({ message: "Weight entry saved", newEntry });
     } catch (error) {
-        console.error("❌ Error saving weight entry:", error);
+        console.error("Error saving weight entry:", error);
         res.status(500).json({ error: "Server error while saving weight entry" });
     }
 });

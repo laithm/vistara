@@ -45,7 +45,7 @@ app.get('/api/weights/:id', async (req, res) => {
 });
 
 // POST: Add New Weight Entry
-app.post('/api/weights', async (req, res) => {
+ app.post('/api/user', async (req, res) => {
   try {
     const { ID, Weight, Height } = req.body;
 

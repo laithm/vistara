@@ -2,7 +2,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Portfolio from "./pages/Portfolio";
 import Lequilibre from "./pages/Lequilibre";
-import Login from "./pages/Login";
+import Login from "./pages/Login";          // Admin login
+import LoginL from "./pages/LoginL";        // L'Équilibre user login
+import Signup from "./pages/Signup";        // L'Équilibre user signup
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
@@ -27,7 +29,7 @@ export default function App() {
 
                 <p className="text-lg mb-8">Choose your destination</p>
 
-                <div className="flex gap-6">
+                <div className="flex gap-6 flex-wrap justify-center">
                   <motion.div whileHover={{ scale: 1.1 }}>
                     <Link to="/portfolio" className="btn btn-blue">
                       Portfolio (To be made)
@@ -56,6 +58,16 @@ export default function App() {
         {/* Admin Section */}
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* L'Équilibre Auth Pages */}
+        <Route path="/lequilibre/login" element={<LoginL />} />
+        <Route path="/lequilibre/signup" element={<Signup />} />
+
+        {/* Future Routes Placeholder */}
+        {/*
+          <Route path="/lequilibre/profile" element={<UserProfile />} />
+          <Route path="/portfolio/some-feature" element={<SomeComponent />} />
+        */}
       </Routes>
     </Router>
   );

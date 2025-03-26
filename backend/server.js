@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-mongoose.connect("mongodb+srv://laithmasri:123@cluster0.fzv6v.mongodb.net/User_Info?retryWrites=true&w=majority&tls=true")
+mongoose.connect("mongodb+srv://laithmasri:123@cluster0.fzv6v.mongodb.net/User_Info?retryWrites=true&w=majority")
   .then(() => {
     console.log("MongoDB Atlas Connected");
   })

@@ -14,90 +14,64 @@ export default function App() {
       <Routes>
         {/* 🟢 Landing Page */}
         <Route
-          path="/"
-          element={
-            <div className="bg-gray-900 text-white min-h-screen overflow-x-hidden">
-              <div className="flex flex-col items-center justify-center py-20 px-6">
-                <motion.h1
-                  className="text-5xl font-extrabold mb-4 text-center"
-                  initial={{ opacity: 0, y: -50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1 }}
-                >
-                  Welcome to Vistara
-                </motion.h1>
+  path="/"
+  element={
+    <div className="relative bg-gray-900 text-white min-h-screen flex items-center justify-center px-6">
+      {/* Main Centered Section */}
+      <div className="text-center max-w-3xl">
+        <motion.h1
+          className="text-6xl sm:text-7xl font-extrabold mb-6"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          Welcome to Vistara
+        </motion.h1>
+        <p className="text-xl text-gray-300 max-w-xl mx-auto">
+          Engineering meets precision. From silicon to software, we build systems that matter.
+        </p>
+      </div>
 
-                <p className="text-lg mb-8 text-center">
-                  Engineering. Research. Vision. Choose your destination:
-                </p>
+      {/* Bottom Left Navigation */}
+      <div className="absolute bottom-6 left-6 flex flex-col gap-2">
+        <a href="#faq" className="btn btn-yellow w-fit">FAQ</a>
+        <a href="#about" className="btn btn-white text-black w-fit">About</a>
+      </div>
 
-                {/* 🔗 Horizontal Button Layout */}
-                <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center mb-16">
-                  <motion.div whileHover={{ scale: 1.1 }}>
-                    <Link to="/portfolio" className="btn btn-blue">
-                      Portfolio
-                    </Link>
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.1 }}>
-                    <Link to="/lequilibre" className="btn btn-green">
-                      L'Équilibre
-                    </Link>
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.1 }}>
-                    <Link to="/login" className="btn btn-purple">
-                      Admin Login
-                    </Link>
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.1 }}>
-                    <a href="#faq" className="btn btn-yellow">
-                      FAQ
-                    </a>
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.1 }}>
-                    <a href="#about" className="btn btn-white text-black">
-                      About
-                    </a>
-                  </motion.div>
-                </div>
-
-                {/* 🟡 FAQ Section */}
-                <section id="faq" className="w-full max-w-3xl mb-20">
-                  <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
-                  <div className="space-y-4 text-left">
-                    <div>
-                      <h3 className="font-semibold text-lg">What is Vistara?</h3>
-                      <p className="text-gray-300">
-                        Vistara is an engineering and research collective focused on software, hardware, and trading infrastructure.
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg">Who is it for?</h3>
-                      <p className="text-gray-300">
-                        Researchers, founders, traders, and anyone who demands performance and precision.
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg">How do I collaborate?</h3>
-                      <p className="text-gray-300">
-                        Use the dashboard, inquiry form (coming soon), or DM Laith directly if you're serious.
-                      </p>
-                    </div>
-                  </div>
-                </section>
-
-                {/* 🔵 About Section */}
-                <section id="about" className="w-full max-w-3xl pb-32">
-                  <h2 className="text-3xl font-bold mb-4">About Vistara</h2>
-                  <p className="text-gray-300">
-                    Founded by Laith Masri, Vistara is a project-first collective merging elite software engineering,
-                    embedded systems, and quant infrastructure. We don’t just build — we ship high-performance, scalable systems
-                    that make an impact.
-                  </p>
-                </section>
-              </div>
+      {/* FAQ Section */}
+      <section id="faq" className="absolute bottom-0 left-0 w-full bg-gray-800 px-6 py-10 border-t border-gray-700">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-lg">What is Vistara?</h3>
+              <p className="text-gray-400">
+                Vistara is an engineering and research collective focused on embedded systems, quant finance, and scalable architecture.
+              </p>
             </div>
-          }
-        />
+            <div>
+              <h3 className="font-semibold text-lg">Who is behind it?</h3>
+              <p className="text-gray-400">
+                Founded by Laith Masri, Vistara blends industry-grade engineering with relentless learning and execution.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="absolute bottom-0 right-0 w-full bg-gray-950 px-6 py-10 border-t border-gray-800">
+        <div className="max-w-3xl ml-auto">
+          <h2 className="text-3xl font-bold mb-4">About Vistara</h2>
+          <p className="text-gray-400">
+            We operate at the intersection of circuits, code, and capital. Vistara builds full-stack tools, custom devices, and alpha-driven infrastructure.
+          </p>
+        </div>
+      </section>
+    </div>
+  }
+/>
+
 
         {/* 🔒 Other Pages */}
         <Route path="/portfolio" element={<Portfolio />} />

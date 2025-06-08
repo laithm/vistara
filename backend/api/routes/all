@@ -1,0 +1,9 @@
+// GET all weight entries
+router.get("/user/all", async (req, res) => {
+  try {
+    const entries = await WeightEntry.find().sort({ TimeStamp: -1 });
+    res.json(entries);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching entries" });
+  }
+});

@@ -12,7 +12,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* 🔵 Landing Page */}
+        {/* 🟢 Landing Page */}
         <Route
           path="/"
           element={
@@ -31,7 +31,8 @@ export default function App() {
                   Engineering. Research. Vision. Choose your destination:
                 </p>
 
-                <div className="flex gap-6 flex-wrap justify-center mb-16">
+                {/* 🔗 Horizontal Button Layout */}
+                <div className="flex flex-wrap sm:flex-nowrap gap-4 justify-center mb-16">
                   <motion.div whileHover={{ scale: 1.1 }}>
                     <Link to="/portfolio" className="btn btn-blue">
                       Portfolio
@@ -84,11 +85,13 @@ export default function App() {
                   </div>
                 </section>
 
-                {/* 🟢 About Section */}
+                {/* 🔵 About Section */}
                 <section id="about" className="w-full max-w-3xl pb-32">
                   <h2 className="text-3xl font-bold mb-4">About Vistara</h2>
                   <p className="text-gray-300">
-                    Founded by Laith Masri, Vistara is a project-first collective that merges elite software design, embedded systems, and trading models.
+                    Founded by Laith Masri, Vistara is a project-first collective merging elite software engineering,
+                    embedded systems, and quant infrastructure. We don’t just build — we ship high-performance, scalable systems
+                    that make an impact.
                   </p>
                 </section>
               </div>
@@ -96,7 +99,7 @@ export default function App() {
           }
         />
 
-        {/* 🔒 Auth / Admin / Other Pages */}
+        {/* 🔒 Other Pages */}
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/lequilibre" element={<Lequilibre />} />
         <Route path="/login" element={<Login />} />

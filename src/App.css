@@ -9,7 +9,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
+  scroll-behavior: smooth;
 }
 
 /* Center Container */
@@ -63,3 +64,6 @@ body {
 .btn-yellow { background-color: #facc15; color: black; }
 .btn-white { background-color: white; color: black; }
 .btn:hover { transform: scale(1.05); opacity: 0.9; }
+html {
+  scroll-behavior: smooth;
+}

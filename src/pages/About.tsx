@@ -2,12 +2,21 @@ import { Link } from "react-router-dom";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gray-950 text-white px-6 py-20 flex flex-col items-center">
-      <h1 className="text-5xl font-bold mb-8 text-center">About Vistara</h1>
+    <div className="flex flex-col items-center px-6 py-20 min-h-screen text-white bg-black">
+      <h1 className="mb-8 text-5xl font-bold text-center">About Vistara</h1>
 
-      <div className="max-w-3xl text-center space-y-6 text-gray-300 text-lg">
-        Vistara is an independent engineering collective founded by <a href="https://www.laithmasri.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-yellow-400">Laith Masri</a>.
-
+      <div className="space-y-6 max-w-3xl text-lg text-center text-white">
+        <p>
+          Vistara is an independent engineering collective founded by{" "}
+          <a
+            href="https://www.laithmasri.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline transition hover:text-yellow-400"
+          >
+            Laith Masri
+          </a>.
+        </p>
 
         <p>
           Our work spans full-stack development, embedded systems, quant infrastructure, and experimental tools that push boundaries.
@@ -18,7 +27,12 @@ export default function About() {
         </p>
       </div>
 
-      <Link to="/" className="mt-16 btn btn-white text-black">← Back to Home</Link>
+      <Link
+        to="/"
+        className="px-6 py-3 mt-16 font-bold text-black bg-white rounded-lg transition hover:scale-105 hover:opacity-90"
+      >
+        ← Back to Home
+      </Link>
     </div>
   );
 }
